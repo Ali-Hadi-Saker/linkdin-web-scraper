@@ -1,11 +1,11 @@
 import puppeteer from "puppeteer";
 
-const scrapLinkdin = async()=>{
+const scrapLinkdin = async(jobTitle)=>{
     try{
         const browser = await puppeteer.launch({headless: false})
         const page = await browser.newPage()
 
-        await page.goto("https://www.linkedin.com/jobs/search/?currentJobId=3960300799&keywords=mlops&origin=BLENDED_SEARCH_RESULT_NAVIGATION_SEE_ALL&originToLandingJobPostings=3960300799%2C3959714046%2C3959702146",
+        await page.goto(`https://www.linkedin.com/jobs/search/?currentJobId=3960300799&keywords=${encodeURIComponent(jobTitle)}&origin=BLENDED_SEARCH_RESULT_NAVIGATION_SEE_ALL&originToLandingJobPostings=3960300799%2C3959714046%2C3959702146`,
             {
                 waitUntil: 'networkidle2',
                 timeout: 60000 // 60 seconds timeout
@@ -45,4 +45,4 @@ const data = async(page)=>{
     })
     
 }
-scrapLinkdin()
+scrapLinkdin('data scientist')
